@@ -40,6 +40,7 @@ end
 
 def print_recipients
   print calculate_recipients.join(", ")
+  print "\n"
 end
 
 def print_one_article(article)
