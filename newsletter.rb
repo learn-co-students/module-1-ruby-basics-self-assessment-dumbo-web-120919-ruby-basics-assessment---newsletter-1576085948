@@ -1,6 +1,8 @@
 #########################
 # Data for the newsletter
 #########################
+require 'pry'
+
 
 CAMPUS = {
   "name": "DC",
@@ -26,33 +28,51 @@ ARTICLES = [
 #########################
 
 def calculate_recipients
+  stillSubbed=[]
+  stillSubbed= (SUBSCRIBERS - UNSUBSCRIBED).push
+  
+  return stillSubbed
+  # stillSubbed = []
+  # SUBSCRIBERS.select {|name| name == UNSUBSCRIBED.any?}
   # Using the SUBSCRIBERS and UNSUBSCRIBED arrays,
   # write a method that will return an array of only the subscribers who haven't unsubscribed
 end
-
-def first_n_articles(number_of_articles
-  ARTICLES.first(number_of_articles)
+def first_n_articles(number_of_articles)
+  ARTICLES.first(number_of_articles.to_i)
 end
 
 def print_recipients
+  print calculate_recipients.join(", ")
+
+  # calculate_recipients.each do |email|
+  #   print "#{email}, "
+  # end
+
   # Write a method that uses the output of calculate_recipients
   # and returns a list of emails separated by commas
   # Ex) "abc@email.com, def@email.com, ghi@email.com"
 end
 
 def print_one_article(article)
+  puts "#{article[:title]}"
+  puts "by :#{article[:author]}"
+  puts "#{article[:text]}"
   # Write a method that will take an article hash
   # and print the title, author and text as a formatted string
   # See the README/sample output for examples
 end
 
 def print_many_articles(articles)
+  articles.each do |articleInstance|
+    print_one_article(articleInstance)
+    puts "\n"
+  end
   # Write a method that will take in an array of article hashes
   # and format each one using the print_one_article method
 end
 
 def format_campus_location(campus)
-  "Flatiron #{campus["name"]}"
+  "Flatiron #{campus[:name]}"
 end
 
 def format_subject
@@ -65,20 +85,20 @@ end
 
 def print_newsletter(number)
   puts "Generating this week's newsletter...\n\n"
-
+  
   print "SUBJECT: "
   format_subject
-
+  
   print "RECIPIENTS: "
   print_recipients
-
+  
   puts "\nBODY:"
   format_subject
   articles = first_n_articles(number)
   print_many_articles(articles)
   puts format_footer(CAMPUS)
-
-  end
+  
+  
 end
 
 def run
@@ -86,7 +106,8 @@ def run
   # but we can change that number here
   print_newsletter("3")
 end
-
+calculate_recipients
+binding.pry
 # When we run "ruby newsletter.rb" in the command line,
 # the 'run' method will be called because we're calling it below.
 run
