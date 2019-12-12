@@ -45,12 +45,8 @@ end
 #Prints the recipents (people who are still subscribed)
 def print_recipients
   calculate_recipients.each_with_index do |subscriber, index| 
-   if index < (calculate_recipients.length - 1)
-     print "#{subscriber}, "
-    #Fence post for last subscriber so comma is not included
-    else
-      print "#{subscriber}"
-    end
+   #Fence post for last subscriber so comma is not included
+   index < (calculate_recipients.length - 1) ? (print "#{subscriber}, ") : (print "#{subscriber}")
   end
 end
 
